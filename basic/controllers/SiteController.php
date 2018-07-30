@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Comment;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -125,4 +126,19 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    /**
+     * @return string
+     */
+    public function actionFoo()
+    {
+        $model = new Comment(['scenario' => Comment::SCENARIO_FRONT]);
+        $model->setAttributes($_GET);
+
+        \var_dump($model->getAttributes());
+
+        return '';
+    }
 }
+
+
