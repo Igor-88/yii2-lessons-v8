@@ -127,6 +127,8 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+
+
     /**
      * @return string
      */
@@ -136,9 +138,11 @@ class SiteController extends Controller
         $model->setAttributes($_GET);
 
         \var_dump($model->getAttributes());
+        \var_dump($model->validate());
 
         return '';
     }
+
+
+
 }
-
-
