@@ -44,7 +44,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Name of geek',
             'count' => 'Count',
             'email_provider' => 'Email Provider',
             'provider_id' => 'Provider ID',

@@ -24,7 +24,12 @@ class GeekController extends Controller
         $request = \Yii::$app->getRequest();
 
         if ($model->load($request->getBodyParams()) && $model->validate()) {
-            $model->save();
+            /*$model->created = date('Y-m-d H:i:s');
+            $model->provider_id = 100;
+            $model->email_provider = 'foo2@example.com';*/
+
+            $model->save(false);
+
         }
 
         return $this->render('index', [

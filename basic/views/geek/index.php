@@ -8,13 +8,26 @@ use yii\widgets\ActiveForm;
 ?>
 <h1>Hello!!!</h1>
 
+<div>
+
+</div>
+
 <?php $form = ActiveForm::begin([
-    'method' => 'get',
+//    'method' => 'get',
     'options' => [
         'data foo' => 777,
     ]
 ]);?>
-    <?=$form->field($model, 'name');?>
+
+	<?php echo $form->errorSummary($model);?>
+
+    <?=$form
+		->field($model, 'name')
+		->dropDownList(['foo', 'bar', 'baz', 'qux'])
+        ->hint('some help text')
+    ?>
+
     <?=$form->field($model, 'count')->label('Set some count');?>
-    <?=\yii\helpers\Html::submitButton('submit');?>
+
+    <?=\yii\bootstrap\Html::submitButton('submit');?>
 <?php ActiveForm::end()?>
