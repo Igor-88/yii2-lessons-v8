@@ -16,6 +16,7 @@ use yii\widgets\ActiveForm;
 //    'method' => 'get',
     'options' => [
         'data foo' => 777,
+	    'class' => 'my-form',
     ]
 ]);?>
 
@@ -23,7 +24,9 @@ use yii\widgets\ActiveForm;
 
     <?=$form
 		->field($model, 'name')
-		->dropDownList(['foo', 'bar', 'baz', 'qux'])
+		->dropDownList(['foo', 'bar', 'baz', 'qux'], [
+					'data-ui' => 'help'
+				])
         ->hint('some help text')
     ?>
 
