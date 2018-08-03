@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\Comment;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -129,9 +128,7 @@ class SiteController extends Controller
 
 
 
-    /**
-     * @return string
-     */
+    /*
     public function actionFoo()
     {
         $model = new Comment(['scenario' => Comment::SCENARIO_FRONT]);
@@ -141,7 +138,7 @@ class SiteController extends Controller
         \var_dump($model->validate());
 
         return '';
-    }
+    }*/
 
 
 
