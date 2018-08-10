@@ -2,16 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\Product;
-use app\models\Reviews;
 use Yii;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -144,7 +140,6 @@ class SiteController extends Controller
 //        $review->save();
 
 
-
         $product = new Product();
         $product->setAttributes(
             [
@@ -214,38 +209,35 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+    /*
+        /**
+         * Displays contact page.
+         *
+         * @return Response|string
+         */
+    /* public function actionContact()
+     {
+         $model = new ContactForm();
+         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+             Yii::$app->session->setFlash('contactFormSubmitted');
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
+             return $this->refresh();
+         }
+         return $this->render('contact', [
+             'model' => $model,
+         ]);
+     }
 
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
+     /**
+      * Displays about page.
+      *
+      * @return string
+      */
+    /*public function actionAbout()
     {
         return $this->render('about');
     }
 
-
-
-    /*
     public function actionFoo()
     {
         $model = new Comment(['scenario' => Comment::SCENARIO_FRONT]);
@@ -256,7 +248,5 @@ class SiteController extends Controller
 
         return '';
     }*/
-
-
 
 }
