@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\OrderForm;
 use Yii;
 use app\models\Order;
 use app\models\search\OrderSearch;
@@ -64,7 +65,7 @@ class OrderController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Order();
+        $model = new OrderForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
