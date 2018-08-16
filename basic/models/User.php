@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use app\models\query\UserQuery;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\web\IdentityInterface;
 
 /**
@@ -115,6 +117,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return hash("sha512", $password . $salt);
     }
+
     /**
      * @inheritdoc
      */

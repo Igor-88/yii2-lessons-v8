@@ -24,17 +24,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             //'id',
-            'name',
+            //'name',
+	        [
+                'attribute' => 'name',
+		        'value' => function ($model) {
+					return Html::a($model->name, ['note/view', 'id' => $model->id]);
+		        },
+		        'format' => 'raw',
+			],
             //'text:ntext',
             'user_id',
             [
             		'attribute' => 'created_at',
-            		'format' => ['date', 'php:d.m.Y']
+            		'format' => ['date', 'php:d.m.Y H:i:s'],
 			],
+            [
+	                'attribute' => 'updated_at',
+	                'format' => ['date', 'php:d.m.Y H:i:s'],
+            ],
             //'created_at:date',
-            'updated_at',
+            //'updated_at',
             'views',
 
             ['class' => 'yii\grid\ActionColumn'],

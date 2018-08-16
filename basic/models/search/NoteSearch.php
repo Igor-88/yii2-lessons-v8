@@ -19,9 +19,11 @@ class NoteSearch extends Note
     {
         return [
             [['id', 'user_id', 'views'], 'integer'],
-            [['name', 'text', 'created_at', 'updated_at'], 'safe'],
+            [['name', 'text'], 'safe'],
         ];
     }
+
+//, 'created_at', 'updated_at'
 
     /**
      * {@inheritdoc}

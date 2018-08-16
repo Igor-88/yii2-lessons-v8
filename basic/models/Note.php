@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "note".
@@ -14,6 +16,8 @@ use Yii;
  * @property string $created_at Создано
  * @property string $updated_at Обновлено
  * @property int $views Просмотры
+ *
+ * @property ?User $user
  */
 class Note extends \yii\db\ActiveRecord
 {
@@ -24,6 +28,17 @@ class Note extends \yii\db\ActiveRecord
     {
         return 'note';
     }
+
+    //public function behaviors()
+    //{
+    //    return [
+    //        'timestamp' => [
+    //            'class' => TimestampBehavior::class,
+    //            'createdAtAttribute' => 'created_at',
+    //            'updatedAtAttribute' => 'updated_at',
+    //        ],
+    //    ];
+    //}
 
     /**
      * {@inheritdoc}
@@ -62,5 +77,13 @@ class Note extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \app\models\query\NoteQuery(get_called_class());
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }
