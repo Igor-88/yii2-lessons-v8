@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m180816_152829_table_access
+ * Class m180817_134133_table_access
  */
-class m180816_152829_table_access extends Migration
+class m180817_134133_table_access extends Migration
 {
     public function up()
     {

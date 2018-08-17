@@ -1,14 +1,13 @@
 <?php
-
 namespace app\models;
 
 use app\models\query\UserQuery;
 use Yii;
-use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * This is the model class for table "user".
+ * User model
  *
  * @property int $id
  * @property string $username
@@ -17,8 +16,8 @@ use yii\web\IdentityInterface;
  * @property string $password
  * @property string $salt
  * @property string $access_token
- * @property string $authKey
  * @property string $create_date
+ *
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -35,10 +34,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return 'user';
     }
 
-    /*public static function find()
+    public static function find()
     {
         return new UserQuery(__CLASS__);
-    }*/
+    }
 
     /**
      * {@inheritdoc}
@@ -96,6 +95,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             return false;
         }
     }
+
     /**
      * Generate the salt
      *
@@ -105,6 +105,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return hash("sha512", uniqid('salt_', true));
     }
+
     /**
      * Return pass with the salt
      *
@@ -125,6 +126,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::findOne(['id' => $id]);
     }
+
     /**
      * @inheritdoc
      */
@@ -132,6 +134,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::findOne(['access_token' => $token]);
     }
+
     /**
      * Finds user by username
      *
@@ -143,6 +146,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return static::findOne(['username' => $username]);
     }
+
     /**
      * @inheritdoc
      */
@@ -150,6 +154,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->id;
     }
+
     /**
      * @inheritdoc
      */
@@ -157,6 +162,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->access_token;
     }
+
     /**
      * @inheritdoc
      */
@@ -164,6 +170,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->getAuthKey() === $authKey;
     }
+
     /**
      * Validates password
      *
@@ -175,6 +182,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->password === $this->passWithSalt($password, $this->salt);
     }
+
     /**
      * Generates password hash from password and sets it to the model
      *
@@ -184,6 +192,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         $this->password = $this->passWithSalt($password, $this->saltGenerator());
     }
+
     /**
      * Generates "remember me" authentication key
      */
