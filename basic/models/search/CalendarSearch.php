@@ -62,7 +62,10 @@ class CalendarSearch extends Calendar
             'id' => $this->id,
             'creator' => $this->creator,
             'date_event' => $this->date_event,
+            'access.user_id' => $params['user_id'] ?? ''
         ]);
+
+        $query->joinWith('access');
 
         $query->andFilterWhere(['like', 'text', $this->text]);
 

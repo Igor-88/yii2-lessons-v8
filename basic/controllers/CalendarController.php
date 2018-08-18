@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Calendar;
 use app\models\search\CalendarSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,17 @@ class CalendarController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['my', 'create', 'update', 'delete', 'shared'],
+                //'except' => ['shared'],
+                'rules' => [
+                    [
+                        'roles' => ['@'],
+                        'allow' => true,
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -41,6 +53,20 @@ class CalendarController extends Controller
                 'creator' => \Yii::$app->user->id,
             ]
         ]);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionShared(): string
+    {
+        $searchModel = new CalendarSearch();
+        $dataProvider = $searchModel->search(['user_id' => \Yii::$app->user->id]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

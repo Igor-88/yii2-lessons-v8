@@ -15,6 +15,7 @@ use yii\db\ActiveQuery;
  * @property string $date_event
  *
  * @property User $author
+ * @property Access[] $accesses
  */
 class Calendar extends \yii\db\ActiveRecord
 {
@@ -32,7 +33,7 @@ class Calendar extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['text', 'creator'], 'required'],
+            [['text'], 'required'],
             [['text'], 'string'],
             [['creator'], 'integer'],
             [['date_event'], 'safe'],
@@ -68,4 +69,27 @@ class Calendar extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class. ['id' => 'creator']);
     }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAccess(): ActiveQuery
+    {
+        return $this->hasMany(Access::class, ['note_id' => 'id']);
+    }
+
+    public function beforeSave($insert)
+    {
+        $result = parent::beforeSave($insert);
+
+        if (!$this->creator) {
+            $this->creator = \Yii::$app->user->id;
+        }
+        if (!$this->date_event) {
+            $this->date_event = \date('Y-m-d H:i:s');
+        }
+
+        return $result;
+    }
+
 }
