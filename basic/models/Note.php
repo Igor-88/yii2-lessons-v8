@@ -2,55 +2,41 @@
 
 namespace app\models;
 
+use app\models\query\NoteQuery;
 use Yii;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "note".
  *
  * @property int $id
- * @property string $name Название
- * @property string $text Текст
- * @property int $user_id Автор
- * @property string $created_at Создано
- * @property string $updated_at Обновлено
- * @property int $views Просмотры
+ * @property string $text
+ * @property int $creator
+ * @property string $date_create
  *
- * @property ?User $user
+ * @property User $author
+ * @property Access[] $accesses
  */
 class Note extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'note';
     }
 
-    //public function behaviors()
-    //{
-    //    return [
-    //        'timestamp' => [
-    //            'class' => TimestampBehavior::class,
-    //            'createdAtAttribute' => 'created_at',
-    //            'updatedAtAttribute' => 'updated_at',
-    //        ],
-    //    ];
-    //}
-
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            [['name', 'text', 'user_id'], 'required'],
+            [['text'], 'required'],
             [['text'], 'string'],
-            [['user_id', 'views'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['name'], 'string', 'max' => 255],
+            [['creator'], 'integer'],
+            [['date_create'], 'safe'],
         ];
     }
 
@@ -61,12 +47,9 @@ class Note extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
-            'text' => 'Текст',
-            'user_id' => 'Автор',
-            'created_at' => 'Создано',
-            'updated_at' => 'Обновлено',
-            'views' => 'Просмотры',
+            'text' => 'Text',
+            'creator' => 'Creator',
+            'date_create' => 'Date Create',
         ];
     }
 
@@ -74,16 +57,39 @@ class Note extends \yii\db\ActiveRecord
      * {@inheritdoc}
      * @return \app\models\query\NoteQuery the active query used by this AR class.
      */
-    public static function find()
+    public static function find(): NoteQuery
     {
-        return new \app\models\query\NoteQuery(get_called_class());
+        return new NoteQuery(__CLASS__);
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getUser(): ActiveQuery
+    public function getAuthor(): ActiveQuery
     {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'creator']);
     }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAccess(): ActiveQuery
+    {
+        return $this->hasMany(Access::class, ['note_id' => 'id']);
+    }
+
+    public function beforeSave($insert)
+    {
+        $result = parent::beforeSave($insert);
+
+        if (!$this->creator) {
+            $this->creator = \Yii::$app->user->id;
+        }
+        if (!$this->date_create) {
+            $this->date_create = \date('Y-m-d H:i:s');
+        }
+
+        return $result;
+    }
+
 }

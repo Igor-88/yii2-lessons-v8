@@ -15,15 +15,13 @@ class NoteSearch extends Note
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            [['id', 'user_id', 'views'], 'integer'],
-            [['name', 'text'], 'safe'],
+            [['id', 'creator'], 'integer'],
+            [['text', 'date_create'], 'safe'],
         ];
     }
-
-//, 'created_at', 'updated_at'
 
     /**
      * {@inheritdoc}
@@ -62,14 +60,14 @@ class NoteSearch extends Note
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'views' => $this->views,
+            'creator' => $this->creator,
+            'date_create' => $this->date_create,
+            'access.user_id' => $params['user_id'] ?? '',
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'text', $this->text]);
+        $query->joinWith('access');
+
+        $query->andFilterWhere(['like', 'text', $this->text]);
 
         return $dataProvider;
     }

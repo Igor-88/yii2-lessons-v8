@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\query\AccessQuery;
 use Yii;
 
 /**
@@ -24,7 +25,7 @@ class Access extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['note_id', 'user_id'], 'required'],
@@ -48,8 +49,8 @@ class Access extends \yii\db\ActiveRecord
      * {@inheritdoc}
      * @return \app\models\query\AccessQuery the active query used by this AR class.
      */
-    public static function find()
+    public static function find(): AccessQuery
     {
-        return new \app\models\query\AccessQuery(get_called_class());
+        return new AccessQuery(__CLASS__);
     }
 }
