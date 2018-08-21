@@ -3,7 +3,6 @@
 namespace app\models;
 
 use app\models\query\AccessQuery;
-use Yii;
 
 /**
  * This is the model class for table "access".
@@ -14,10 +13,14 @@ use Yii;
  */
 class Access extends \yii\db\ActiveRecord
 {
+    public const LEVEL_DENIED = 0;
+    public const LEVEL_VIEW = 1;
+    public const LEVEL_EDIT = 2;
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'access';
     }

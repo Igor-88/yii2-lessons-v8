@@ -30,7 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'author.name',
             'date_create',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+	            'buttons' => [
+	            		'update' => function ($url, \app\models\Note $model) {
+    	                    return (new \app\objects\CheckNoteAccess())->execute($model) === \app\models\Access::LEVEL_EDIT ? Html::a('Update', $url) : '';
+			            },
+	            ],
+            ],
         ],
     ]); ?>
 </div>
