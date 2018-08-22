@@ -10,6 +10,7 @@ use app\models\query\AccessQuery;
  * @property int $id
  * @property int $note_id
  * @property int $user_id
+ * @property string $since
  */
 class Access extends \yii\db\ActiveRecord
 {
@@ -32,6 +33,7 @@ class Access extends \yii\db\ActiveRecord
     {
         return [
             [['note_id', 'user_id'], 'required'],
+            ['since', 'date', 'format' => 'Y-m-d'],
             [['note_id', 'user_id'], 'integer'],
         ];
     }
@@ -39,12 +41,13 @@ class Access extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
             'note_id' => 'Note ID',
             'user_id' => 'User ID',
+            'since' => 'Доступно с',
         ];
     }
 

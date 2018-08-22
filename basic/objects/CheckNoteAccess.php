@@ -25,14 +25,16 @@ class CheckNoteAccess
     {
         $authorId = (int)$model->creator;
         $userID = (int)\Yii::$app->user->id;
-        if ($authorId == $userID) {
+        if ($authorId === $userID) {
             return Access::LEVEL_EDIT;
         }
 
-        $accessNote = Access::find()
+        $query = Access::find()
             ->forNote($model)
             ->forUserId($userID)
-            ->one();
+            ->forCurrentDate();
+
+        $accessNote = $query->one();
 
         if ($accessNote) {
             return Access::LEVEL_VIEW;

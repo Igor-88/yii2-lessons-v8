@@ -15,7 +15,7 @@ use yii\db\ActiveQuery;
  * @property string $date_create
  *
  * @property User $author
- * @property Access[] $accesses
+ * @property Access[] $access
  */
 class Note extends \yii\db\ActiveRecord
 {
