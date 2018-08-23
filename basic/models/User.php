@@ -16,10 +16,11 @@ use yii\web\IdentityInterface;
  * @property string $password
  * @property string $salt
  * @property string $access_token
+ * @property string $authKey
  * @property string $create_date
  *
  */
-class User extends \yii\db\ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
     /**
      * Validate constant
