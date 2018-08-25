@@ -33,8 +33,7 @@ class CheckNoteAccess
         $query = Access::find()
             ->forNote($model)
             ->forUserId($userID)
-            ->forCurrentDate()
-        ;
+            ->forCurrentDate();
 
         $accessNote = $query->one();
 

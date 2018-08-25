@@ -7,3 +7,15 @@ services:
       - ./:/app:delegated
     ports:
       - '8000:80'
+
+
+
+
+  #redis:
+      #image: 'bitnami/redis:latest'
+      #environment:
+               # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      #- ALLOW_EMPTY_PASSWORD=yes
+                #- REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+      #ports:
+      #- '6379:6379'

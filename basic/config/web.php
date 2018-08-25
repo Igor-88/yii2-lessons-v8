@@ -1,5 +1,8 @@
 <?php
 
+use yii\redis\Cache;
+use yii\redis\Connection;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -17,9 +20,21 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'd_M4Uve06cEg6OmDmUKB0ubNqogZVclM',
         ],
+        //'cache' => [
+            //'class' => 'yii\caching\FileCache',
+        //],  ТО, что было
+
+        // Скопировал и поставил:
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => Cache::class,
+            'redis' => [
+                'class' => Connection::class,
+                'hostname' => '127.0.0.1',
+                'port' => 6379,
+                'database' => 0,
+            ]
         ],
+
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,

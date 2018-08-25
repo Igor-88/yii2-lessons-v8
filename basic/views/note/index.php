@@ -23,7 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => \yii\grid\SerialColumn::class,
+            ],
 
             'id',
             'text:ntext',
@@ -34,7 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
 	            'buttons' => [
 	            		'update' => function ($url, \app\models\Note $model) {
-    	                    return (new \app\objects\CheckNoteAccess())->execute($model) === \app\models\Access::LEVEL_EDIT ? Html::a('Update', $url) : '';
+    	                    return (new \app\objects\CheckNoteAccess())->execute($model) === \app\models\Access::LEVEL_EDIT
+		                        ? Html::a('Update', $url)
+		                        : '';
 			            },
 	            ],
             ],
