@@ -181,7 +181,7 @@ class NoteController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Note::find()->andWhere(['id' => $id])->cache(60)->one()) !== null) {
+        if (($model = Note::findOne($id)) !== null) {
             return $model;
         }
 
