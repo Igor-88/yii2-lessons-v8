@@ -1,5 +1,8 @@
 <?php
 
+use yii\redis\Cache;
+use yii\redis\Connection;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -13,8 +16,14 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
+        'cache' => [     // - Скопировал из web.php и вставил
+            'class' => Cache::class,
+            'redis' => [
+                'class' => Connection::class,
+                'hostname' => '127.0.0.1',
+                'port' => 6379,
+                'database' => 0,
+            ],
         ],
         'log' => [
             'targets' => [

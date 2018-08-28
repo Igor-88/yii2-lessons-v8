@@ -8,13 +8,14 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'Календарь',
+    'name' => 'Календарь',  //Так у препода
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'defaultRoute' => 'note/index', //Так у препода
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -32,7 +33,7 @@ $config = [
                 'hostname' => '127.0.0.1',
                 'port' => 6379,
                 'database' => 0,
-            ]
+            ],
         ],
 
         'user' => [
