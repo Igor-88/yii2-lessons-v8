@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\StringHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\NoteSearch */
@@ -28,7 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             'id',
-            'text:ntext',
+            [
+				'attribute' => 'text',
+	            'format' => 'raw',
+	            'value' => function ($model) {
+    	            return StringHelper::truncateWords($model->text, 2, '', true);
+	            }
+			],
             'author.name',
             'date_create',
 

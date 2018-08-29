@@ -15,16 +15,13 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'language' => 'ru-Ru',
     'defaultRoute' => 'note/index', //Так у препода
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'd_M4Uve06cEg6OmDmUKB0ubNqogZVclM',
         ],
-        //'cache' => [
-            //'class' => 'yii\caching\FileCache',
-        //],  ТО, что было
-
         // Скопировал и поставил:
         'cache' => [
             'class' => Cache::class,
