@@ -27,27 +27,27 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => \yii\grid\SerialColumn::class,
             ],
-
-            'id',
             [
 				'attribute' => 'text',
 	            'format' => 'raw',
 	            'value' => function ($model) {
-    	            return StringHelper::truncateWords($model->text, 2, '', true);
+    	            $text = StringHelper::truncateWords($model->text, 2, '', true);
+
+    	            return Html::a($text, ['note/view', 'id' => $model->id]);
 	            }
 			],
             'author.name',
-            'date_create',
-
             [
-                'class' => 'yii\grid\ActionColumn',
-	            'buttons' => [
-	            		'update' => function ($url, \app\models\Note $model) {
-    	                    return (new \app\objects\CheckNoteAccess())->execute($model) === \app\models\Access::LEVEL_EDIT
-		                        ? Html::a('Update', $url)
-		                        : '';
-			            },
-	            ],
+                'attribute' => 'date_create',
+	            'format' => ['date', 'php:d.m.Y H:i'],
+            ],
+            [
+                'class' => \yii\grid\ActionColumn::class,
+	            'visibleButtons' => [
+                    'update' => function ($model) {
+					return (new \app\objects\CheckNoteAccess())->execute($model) === \app\models\Access::LEVEL_EDIT;
+                    }
+				],
             ],
         ],
     ]); ?>
